@@ -1,4 +1,4 @@
-//
+//  Modified by Mark Story [mark@mark-story.com], 2020
 //  Modified by Popye [sailor3101@gmail.com], 2017
 //
 //  Original copyright (C) 2014, Tom Beckmann
