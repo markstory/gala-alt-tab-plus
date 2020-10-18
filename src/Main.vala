@@ -28,14 +28,14 @@ namespace Gala.Plugins.AltTabPlus
     public const string SWITCHER_PLUGIN_VERSION = "0.2";
 
     // Visual Settings
-    public const string FONT_NAME = "Open Sans";
-    public const string ACTIVE_ICON_COLOR = "#ffffff48";
+    public const string FONT_NAME = "DejaVu Sans";
+    public const string ACTIVE_ICON_COLOR = "#FFFFFF48";
     public const int ICON_SIZE = 64;
-    public const string WRAPPER_BACKGROUND_COLOR = "#00000028";
+    public const string WRAPPER_BACKGROUND_COLOR = "#00000048";
     public const int WRAPPER_BORDER_RADIUS = 8;
     public const int WRAPPER_PADDING = 8;
     public const string CAPTION_FONT_NAME = "Open Sans";
-    public const string CAPTION_COLOR = "#222222";
+    public const string CAPTION_COLOR = "#111111";
 
     public class Main : Gala.Plugin
     {
@@ -160,7 +160,6 @@ namespace Gala.Plugins.AltTabPlus
                     cur_icon = icon;
                 }
                 icon.set_pivot_point(0.5f, 0.5f);
-                icon.set_easing_duration(200);
                 container.add_child(icon);
 
             }
@@ -278,21 +277,6 @@ namespace Gala.Plugins.AltTabPlus
             wm.pop_modal(modal_proxy);
             opened = false;
 
-            ObjectCallback remove_actor = () => {
-                wm.ui_group.remove_child(wrapper);
-            };
-            wrapper.save_easing_state();
-            wrapper.set_easing_duration(100);
-            wrapper.opacity = 0;
-
-            var transition = wrapper.get_transition("opacity");
-            if (transition != null) {
-                transition.completed.connect(() => remove_actor(this));
-            } else {
-                remove_actor(this);
-            }
-            wrapper.restore_easing_state();
-
             var window = cur_icon.window;
             if (window == null) {
                 return;
@@ -304,6 +288,22 @@ namespace Gala.Plugins.AltTabPlus
             } else {
                 window.activate(time);
             }
+
+            ObjectCallback remove_actor = () => {
+                wm.ui_group.remove_child(wrapper);
+            };
+
+            wrapper.save_easing_state();
+            wrapper.set_easing_duration(100);
+            wrapper.opacity = 0;
+
+            var transition = wrapper.get_transition("opacity");
+            if (transition != null) {
+                transition.completed.connect(() => remove_actor(this));
+            } else {
+                remove_actor(this);
+            }
+            wrapper.restore_easing_state();
         }
 
         void next_window(Display display, Workspace? workspace, bool backward)
