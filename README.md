@@ -3,7 +3,7 @@
 Replace the default alt-tab behavior of gala/elementary os with a simpler UI
 inspired by the Gnome switcher and MacOS.
 
-![./example.png]()
+![](./example.png)
 
 This is based off of [tom95/gala-alternate-alt-tab](https://github.com/tom95/gala-alternate-alt-tab)
 
