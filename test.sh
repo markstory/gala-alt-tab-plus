@@ -4,7 +4,7 @@
 Xephyr :3 &
 
 # start gala on the new display
-gala -d :3 &
+G_MESSAGES_DEBUG=all gala -d :3 &
 
 sleep 2
 

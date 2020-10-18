@@ -28,14 +28,13 @@ namespace Gala.Plugins.AltTabPlus
     public const string SWITCHER_PLUGIN_VERSION = "0.2";
 
     // Visual Settings
-    public const string FONT_NAME = "DejaVu Sans";
-    public const string ACTIVE_ICON_COLOR = "#FFFFFF48";
+    public const string ACTIVE_ICON_COLOR = "#5e5e6448";
     public const int ICON_SIZE = 64;
-    public const string WRAPPER_BACKGROUND_COLOR = "#00000048";
+    public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 8;
     public const int WRAPPER_PADDING = 8;
-    public const string CAPTION_FONT_NAME = "Open Sans";
-    public const string CAPTION_COLOR = "#111111";
+    public const string CAPTION_FONT_NAME = "DejaVu Sans Normal Book 11";
+    public const string CAPTION_COLOR = "#2e2e31";
 
     public class Main : Gala.Plugin
     {
@@ -86,6 +85,8 @@ namespace Gala.Plugins.AltTabPlus
 
             caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(CAPTION_COLOR));
             caption.set_pivot_point(0.5f, 0.5f);
+            caption.set_ellipsize(Pango.EllipsizeMode.END);
+            caption.set_line_alignment(Pango.Alignment.CENTER);
 
             wrapper.add_child(indicator);
             wrapper.add_child(container);
@@ -214,7 +215,6 @@ namespace Gala.Plugins.AltTabPlus
             caption.visible = false;
             caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
 
-            wrapper.opacity = 0;
 
             var monitor = screen.get_primary_monitor();
             var geom = screen.get_monitor_geometry(monitor);
@@ -235,9 +235,9 @@ namespace Gala.Plugins.AltTabPlus
             if (container.get_n_children() == 1) {
                 nat_width -= WRAPPER_PADDING;
             }
-
             container.get_preferred_size(null, null, null, out nat_height);
 
+            wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
                 (int) (
@@ -245,9 +245,11 @@ namespace Gala.Plugins.AltTabPlus
                     (caption.height - (container.margin_bottom - caption.height)) / 2
                 )
             );
+            wrapper.set_position(
+                geom.x + (geom.width - wrapper.width) / 2,
+                geom.y + (geom.height - wrapper.height) / 2
+            );
 
-            wrapper.set_position(geom.x + (geom.width - wrapper.width) / 2,
-                                geom.y + (geom.height - wrapper.height) / 2);
 
             wm.ui_group.insert_child_above(wrapper, null);
 
@@ -351,10 +353,10 @@ namespace Gala.Plugins.AltTabPlus
             if (initial) {
                 caption.visible = true;
             }
-            caption.set_position(
-                wrapper.width / 2 - caption.width / 2,
-                container.y + container.height + WRAPPER_PADDING
-            );
+
+            // Make caption smaller than the wrapper, so it doesn't overflow.
+            caption.width = wrapper.width - WRAPPER_PADDING * 2;
+            caption.set_position(WRAPPER_PADDING, container.y + container.height + WRAPPER_PADDING);
         }
 
         void update_indicator_position(bool initial = false)
