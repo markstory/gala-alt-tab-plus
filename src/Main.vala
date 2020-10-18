@@ -32,7 +32,6 @@ namespace Gala.Plugins.AltTabPlus
     public const string FONT_NAME = "Open Sans";
     public const string ACTIVE_ICON_COLOR = "#ffffff48";
     public const int ICON_SIZE = 64;
-    public const uint INACTIVE_ICON_OPACITY = 80;
     public const string WRAPPER_BACKGROUND_COLOR = "#00000028";
     public const int WRAPPER_BORDER_RADIUS = 8;
     public const int WRAPPER_PADDING = 8;
@@ -160,14 +159,11 @@ namespace Gala.Plugins.AltTabPlus
                 var icon = new WindowIcon(window, ICON_SIZE);
                 if (window == current_window) {
                     cur_icon = icon;
-                } else {
-                    icon.opacity = INACTIVE_ICON_OPACITY;
                 }
                 icon.set_pivot_point(0.5f, 0.5f);
                 icon.set_easing_duration(200);
                 container.add_child(icon);
 
-                icon.set_scale(ANIMATE_SCALE, ANIMATE_SCALE);
             }
         }
 
@@ -207,7 +203,7 @@ namespace Gala.Plugins.AltTabPlus
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
-                container.margin_right = container.margin_bottom = WRAPPER_PADDING;
+                container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 3);
 
             var l = container.layout_manager as FlowLayout;
             l.column_spacing = l.row_spacing = WRAPPER_PADDING;
@@ -218,9 +214,9 @@ namespace Gala.Plugins.AltTabPlus
                 ICON_SIZE + WRAPPER_PADDING * 2
             );
             caption.visible = false;
+            caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
 
             wrapper.opacity = 0;
-            wrapper.set_scale(ANIMATE_SCALE, ANIMATE_SCALE);
 
             var monitor = screen.get_primary_monitor();
             var geom = screen.get_monitor_geometry(monitor);
@@ -259,7 +255,6 @@ namespace Gala.Plugins.AltTabPlus
 
             wrapper.save_easing_state();
             wrapper.set_easing_duration(200);
-            wrapper.set_scale(1, 1);
             wrapper.opacity = 255;
             wrapper.restore_easing_state();
 
@@ -289,7 +284,6 @@ namespace Gala.Plugins.AltTabPlus
             };
             wrapper.save_easing_state();
             wrapper.set_easing_duration(100);
-            wrapper.set_scale(ANIMATE_SCALE, ANIMATE_SCALE);
             wrapper.opacity = 0;
 
             var transition = wrapper.get_transition("opacity");
@@ -328,11 +322,6 @@ namespace Gala.Plugins.AltTabPlus
                 if (actor == null) {
                     actor = container.get_last_child();
                 }
-            }
-
-            if (current != actor) {
-                Utils.icon_fade(current, false);
-                current.set_scale(ANIMATE_SCALE, ANIMATE_SCALE);
             }
 
             cur_icon = (WindowIcon) actor;
@@ -410,10 +399,6 @@ namespace Gala.Plugins.AltTabPlus
 
             float x, y;
             cur_icon.allocation.get_origin(out x, out y);
-            if (INACTIVE_ICON_OPACITY == cur_icon.opacity) {
-                Utils.icon_fade(cur_icon);
-            }
-            cur_icon.set_scale(1.0, 1.0);
 
             if (initial) {
                 indicator.visible = true;
@@ -451,8 +436,6 @@ namespace Gala.Plugins.AltTabPlus
             }
 
             if (cur_icon != selected) {
-                Utils.icon_fade(cur_icon, false);
-                cur_icon.set_scale(ANIMATE_SCALE, ANIMATE_SCALE);
                 cur_icon = selected;
                 update_indicator_position();
             }
