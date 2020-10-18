@@ -28,7 +28,6 @@ namespace Gala.Plugins.AltTabPlus
     public const string SWITCHER_PLUGIN_VERSION = "0.2";
 
     // Visual Settings
-    public const double ANIMATE_SCALE = 0.8;
     public const string FONT_NAME = "Open Sans";
     public const string ACTIVE_ICON_COLOR = "#ffffff48";
     public const int ICON_SIZE = 64;
@@ -345,36 +344,17 @@ namespace Gala.Plugins.AltTabPlus
                 var wnck_current_window = Wnck.Window.get(xid);
                 if (wnck_current_window != null) {
                     current_caption = wnck_current_window.get_name();
-                } // else it will stay "n/a"
+                }
             }
-
-            if (initial) {
-                caption.set_text(current_caption);
-                caption.set_position(
-                    wrapper.width / 2 - caption.width / 2,
-                    container.y + container.height + WRAPPER_PADDING
-                );
-                caption.visible = true;
-
-                caption.opacity = 100;
-                caption.save_easing_state();
-                caption.set_easing_duration(200);
-                caption.opacity = 255;
-                caption.restore_easing_state();
-            }
-
-            caption.save_easing_state();
-            caption.set_easing_mode(AnimationMode.EASE_OUT_QUINT);
-            caption.set_easing_duration(300);
-            caption.restore_easing_state();
-
             caption.set_text(current_caption);
 
-            caption.save_easing_state();
-            caption.set_easing_mode(AnimationMode.EASE_OUT_QUINT);
-            caption.set_easing_duration(300);
-            caption.x = wrapper.width / 2 - caption.width / 2;
-            caption.restore_easing_state();
+            if (initial) {
+                caption.visible = true;
+            }
+            caption.set_position(
+                wrapper.width / 2 - caption.width / 2,
+                container.y + container.height + WRAPPER_PADDING
+            );
         }
 
         void update_indicator_position(bool initial = false)
@@ -389,11 +369,6 @@ namespace Gala.Plugins.AltTabPlus
                     update_indicator_position(initial);
                     return false;
                 }, GLib.Priority.DEFAULT);
-
-                /*Idle.add (() => {
-                    update_indicator_position (initial);
-                    return false;
-                });*/
                 return;
             }
 
