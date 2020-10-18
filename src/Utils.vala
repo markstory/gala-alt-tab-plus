@@ -34,7 +34,7 @@ namespace Gala.Plugins.AltTabPlus
             } else {
                 act.save_easing_state();
                 act.set_easing_duration(200);
-                act.opacity = Main.INACTIVE_ICON_OPACITY;
+                act.opacity = INACTIVE_ICON_OPACITY;
                 act.restore_easing_state();
             }
         }

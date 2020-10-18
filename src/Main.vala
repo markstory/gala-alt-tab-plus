@@ -27,22 +27,22 @@ namespace Gala.Plugins.AltTabPlus
 
     public const string SWITCHER_PLUGIN_VERSION = "0.2";
 
+    // Visual Settings
+    public const double ANIMATE_SCALE = 0.8;
+    public const string FONT_NAME = "Open Sans";
+    public const string ACTIVE_ICON_COLOR = "#ffffff48";
+    public const int ICON_SIZE = 64;
+    public const uint INACTIVE_ICON_OPACITY = 80;
+    public const string WRAPPER_BACKGROUND_COLOR = "#00000028";
+    public const int WRAPPER_BORDER_RADIUS = 8;
+    public const int WRAPPER_PADDING = 8;
+    public const string CAPTION_FONT_NAME = "Open Sans";
+    public const string CAPTION_COLOR = "#222222";
+
     public class Main : Gala.Plugin
     {
         const int MIN_OFFSET = 64;
         const int FIX_TIMEOUT_INTERVAL = 100;
-
-        // Visual Settings 
-        const double ANIMATE_SCALE = 0.8;
-        const char FONT_NAME = "Open Sans";
-        const char ACTIVE_ICON_COLOR = "#ffffff48";
-        const int ICON_SIZE = 64;
-        const double INACTIVE_ICON_OPACITY = 0.8;
-        const char WRAPPER_BACKGROUND_COLOR = "#00000028";
-        const int WRAPPER_BORDER_RADIUS = 8;
-        const int WRAPPER_PADDING = 8;
-        const char CAPTION_FONT_NAME = "Open Sans";
-        const char CAPTION_COLOR = "#222222";
 
         public bool opened { get; private set; default = false; }
 
@@ -67,14 +67,13 @@ namespace Gala.Plugins.AltTabPlus
             KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
             KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
-            var layout = new FlowLayout(FlowOrientation.HORIZONTAL);
-
             wrapper = new RoundedActor(Color.from_string(WRAPPER_BACKGROUND_COLOR), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
             wrapper.key_focus_out.connect(key_focus_out);
 
+            var layout = new FlowLayout(FlowOrientation.HORIZONTAL);
             container = new Actor();
             container.layout_manager = layout;
             container.reactive = true;
@@ -87,7 +86,7 @@ namespace Gala.Plugins.AltTabPlus
                 indicator.margin_right = indicator.margin_bottom = 0;
             indicator.set_pivot_point(0.5f, 0.5f);
 
-            caption = Text.full(CAPTION_FONT_NAME, "", Color.from_string(CAPTION_COLOR));
+            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(CAPTION_COLOR));
             caption.set_pivot_point(0.5f, 0.5f);
 
             wrapper.add_child(indicator);
@@ -177,7 +176,7 @@ namespace Gala.Plugins.AltTabPlus
             if (container.get_n_children() == 0) {
                 return;
             } else if (container.get_n_children() == 1) {
-                if ((cur_icon == null && cur_wpa == null)) {
+                if (cur_icon == null) {
                     return;
                 }
 
@@ -202,7 +201,7 @@ namespace Gala.Plugins.AltTabPlus
             );
 
             indicator.renew_settings(
-                ACTIVE_ICON_COLOR,
+                Color.from_string(ACTIVE_ICON_COLOR),
                 WRAPPER_BORDER_RADIUS
             );
             indicator.set_easing_duration(200);
@@ -215,8 +214,8 @@ namespace Gala.Plugins.AltTabPlus
 
             indicator.visible = false;
             indicator.resize(
-                ICON_SIZE + WRAPPER_BORDER * 2,
-                ICON_SIZE + WRAPPER_BORDER * 2
+                ICON_SIZE + WRAPPER_PADDING * 2,
+                ICON_SIZE + WRAPPER_PADDING * 2
             );
             caption.visible = false;
 
@@ -246,7 +245,7 @@ namespace Gala.Plugins.AltTabPlus
             container.get_preferred_size(null, null, null, out nat_height);
 
             wrapper.resize(
-                (int) nat_width, 
+                (int) nat_width,
                 (int) (
                     (nat_height) +
                     (caption.height - (container.margin_bottom - caption.height)) / 2
