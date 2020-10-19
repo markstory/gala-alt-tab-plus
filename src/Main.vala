@@ -136,11 +136,6 @@ namespace Gala.Plugins.AltTabPlus
             var binding_name = binding.get_name();
             var backward = binding_name.has_suffix("-backward");
 
-            // FIXME for unknown reasons, switch-applications-backward won't be emitted, so we
-            //       test manually if shift is held down
-            /*
-            backward = binding_name == "switch-applications-backward";
-            //  && (get_current_modifiers () & ModifierType.SHIFT_MASK) != 0;*/
             next_window(display, workspace, backward);
         }
 
@@ -152,7 +147,7 @@ namespace Gala.Plugins.AltTabPlus
             container.width = -1;
             container.destroy_all_children();
 
-            //update wnck
+            // Update wnck
             Wnck.Screen.get_default().force_update();
 
             foreach (var window in windows) {

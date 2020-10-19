@@ -30,6 +30,13 @@ sudo make install
 sudo gala --replace &
 ```
 
+## Troubleshooting
+
+### Alt + Shift + Tab doesn't work
+
+Elementary ships with `Alt + Shift` bound 'switch layouts'. Make sure you go
+into 'Settings > Keyboard > Layout' and remove/reassign this keybinding.
+
 ## Tested versions
 
 * Elementary OS 5.1.6
