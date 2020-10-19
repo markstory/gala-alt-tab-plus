@@ -69,14 +69,5 @@ namespace Gala.Plugins.AltTabPlus
             canvas.set_size (width, height);
             canvas.invalidate ();
         }
-
-        public void renew_settings (Color background_color, int radius)
-        {
-            rect_radius = radius;
-            back_color = background_color;
-            canvas = new Canvas ();
-            this.set_content (canvas);
-            canvas.draw.connect (this.drawit);
-        }
     }
 }

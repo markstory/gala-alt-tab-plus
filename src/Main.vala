@@ -183,17 +183,6 @@ namespace Gala.Plugins.AltTabPlus
             }
 
             var screen = wm.get_screen();
-
-            // renew settings for actors
-            wrapper.renew_settings(
-                Color.from_string(WRAPPER_BACKGROUND_COLOR),
-                WRAPPER_BORDER_RADIUS
-            );
-
-            indicator.renew_settings(
-                Color.from_string(ACTIVE_ICON_COLOR),
-                WRAPPER_BORDER_RADIUS
-            );
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
@@ -209,7 +198,6 @@ namespace Gala.Plugins.AltTabPlus
             );
             caption.visible = false;
             caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
-
 
             var monitor = screen.get_primary_monitor();
             var geom = screen.get_monitor_geometry(monitor);
