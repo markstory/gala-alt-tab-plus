@@ -29,10 +29,10 @@ namespace Gala.Plugins.AltTabPlus
 
     // Visual Settings
     public const string ACTIVE_ICON_COLOR = "#5e5e6448";
-    public const int ICON_SIZE = 64;
+    public const int ICON_SIZE = 96;
     public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
-    public const int WRAPPER_BORDER_RADIUS = 8;
-    public const int WRAPPER_PADDING = 8;
+    public const int WRAPPER_BORDER_RADIUS = 12;
+    public const int WRAPPER_PADDING = 12;
     public const string CAPTION_FONT_NAME = "DejaVu Sans Normal Book 11";
     public const string CAPTION_COLOR = "#2e2e31";
 
