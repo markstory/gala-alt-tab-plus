@@ -34,4 +34,4 @@ OPTIONS
 add_library(${NAME} SHARED ${VALA_C})
 target_link_libraries(${NAME} ${DEPS_LIBRARY} m)
 
-install(TARGETS ${NAME} DESTINATION lib/x86_64-linux-gnu/gala/plugins)
+install(TARGETS ${NAME} DESTINATION /usr/lib/x86_64-linux-gnu/gala/plugins)

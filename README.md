@@ -30,6 +30,25 @@ sudo make install
 sudo gala --replace &
 ```
 
+## Running tests
+
+Modifying the primary gala instance can result in a broken desktop that requires a restart to fix.
+To avoid this, you should use `xephyr`:
+
+```bash
+sudo apt install xserver-xephyr
+# Run the test script starts up xephyr, calculator and xterm
+./test.sh
+```
+
+With xephyr active you can give it focus with `ctrl-shift` and test out the new alt-tab behavior.
+
+Once you're done testing you can remove the plugin with.
+
+```bash
+./cleanup.sh
+```
+
 ## Troubleshooting
 
 ### Alt + Shift + Tab doesn't work
