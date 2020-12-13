@@ -128,7 +128,10 @@ namespace Gala.Plugins.AltTabPlus
             }
 
             if (!opened) {
-                collect_windows(display, workspace);
+                var windowsExist = collect_windows(display, workspace);
+                if (!windowsExist) {
+                  return;
+                }
                 open_switcher();
                 update_indicator_position(true);
             }
@@ -139,9 +142,14 @@ namespace Gala.Plugins.AltTabPlus
             next_window(display, workspace, backward);
         }
 
-        void collect_windows(Display display, Workspace? workspace)
+        bool collect_windows(Display display, Workspace? workspace)
         {
             var windows = display.get_tab_list(TabList.NORMAL, workspace);
+            
+            if (windows == null) {
+                return false;
+            }
+            
             var current_window = display.get_tab_current(TabList.NORMAL, workspace);
 
             container.width = -1;
@@ -159,6 +167,8 @@ namespace Gala.Plugins.AltTabPlus
                 container.add_child(icon);
 
             }
+            
+            return true;
         }
 
         void open_switcher()
@@ -470,4 +480,4 @@ public Gala.PluginInfo register_plugin()
         provides = Gala.PluginFunction.WINDOW_SWITCHER,
         load_priority = Gala.LoadPriority.IMMEDIATE
     };
-}
+}	
