@@ -175,17 +175,6 @@ namespace Gala.Plugins.AltTabPlus
         {
             if (container.get_n_children() == 0) {
                 return;
-            } else if (container.get_n_children() == 1) {
-                if (cur_icon == null) {
-                    return;
-                }
-
-                var window = cur_icon.window;
-                var workspace = wm.get_screen().get_active_workspace();
-
-                if (!window.minimized && workspace == window.get_workspace()) {
-                    return;
-                }
             }
 
             if (opened) {
