@@ -33,7 +33,10 @@ namespace Gala.Plugins.AltTabPlus
     public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
-    public const string CAPTION_FONT_NAME = "DejaVu Sans Normal Book 11";
+    // Set to the default font for elementary OS.
+    // See: https://github.com/elementary/default-settings/blob/ff9a432dada00bfeadcb3c423e6cfbfd1c90f978/overrides/default-settings.gschema.override.in#L27
+    // If a font is not set, defaults to Open Sans @ 9pt on elementary OS 5.1.7.
+    public const string CAPTION_FONT_NAME = "Inter 9";
     public const string CAPTION_COLOR = "#2e2e31";
 
     public class Main : Gala.Plugin
