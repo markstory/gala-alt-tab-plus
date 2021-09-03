@@ -3,7 +3,11 @@
 Replace the default alt-tab behavior of gala/elementary os with a simpler UI
 inspired by the Gnome switcher and MacOS.
 
-![](./example.png)
+![Example of application switcher](./example.png)
+
+
+:warning: If you are looking for an Elementary 6 Odin compatible version check
+out [small-tech/catts](https://github.com/small-tech/catts). :warning:
 
 This is based off of [tom95/gala-alternate-alt-tab](https://github.com/tom95/gala-alternate-alt-tab)
 
